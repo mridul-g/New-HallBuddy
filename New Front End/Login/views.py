@@ -206,7 +206,7 @@ def SignUp(request):
         return render(request, "SignUp.html", context={"options1": options1, "options2":options2, "options3":options3, "options4":options4})
 
 def OTP_Send(request):
-    # sends an otp to the mail
+    # sends an OTP to mail
     if request.method=="GET":
         if '6' not in request.session:
             otp = random.randrange(100000,999999)
@@ -219,7 +219,7 @@ def OTP_Send(request):
                     username=request.session['5']
                     name=User_class.objects.filter(username=username)[0].name
                 subject = f'OTP for SignUp - {otp}'
-                message = f'Dear {name}, Your OTP for continuing on United Portal for Hall Automation is {otp}. Please be careful to not send it to third party.'
+                message = f'Dear {name}, Your OTP for HallBuddy account is {otp}. Valid only for 5 mins. Please do not share this with any other person.'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [f'{username}@iitk.ac.in',]
                 send_mail(subject, message, email_from, recipient_list)
@@ -230,7 +230,7 @@ def OTP_Send(request):
             return redirect(Set_Password)
 
 def OTP(request):
-    # takes the otp and verifies it
+    # inputs the OTP and verifies it
     if request.method=="POST":
         otp1=request.POST.get("OTP")
         if otp1=='':
@@ -243,7 +243,7 @@ def OTP(request):
             request.session['6']=1
             return redirect(Set_Password)
         else:
-            messages.error(request, 'incorrect OTP')                # if the otps dont match
+            messages.error(request, 'Incorrect OTP')                # if OTP don't matches
             return render(request, "OTP.html", context={'messages':messages.get_messages(request)})
     if request.method=="GET":
         if '4' in request.session:
