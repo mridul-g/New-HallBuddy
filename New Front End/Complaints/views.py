@@ -20,15 +20,19 @@ def Past_Request(request):
 def Pending_Request(request):
     # Used to mark pending requests as complete
     if request.user.is_authenticated:
-        if request.user.designation == "Student" :
+        if request.user.designation == "Student":
             pending_list = Cleaning_Request.objects.filter(Done = False)
             if request.method == 'POST':
                 x = request.POST.get('identity')
                 # used to identify which request is being marked as complete
                 req=Cleaning_Request.objects.filter(id = int(x))[0]
-                req.Done = True
-                req.save()
-                messages.success(request, "Your request has been removed from pending requests successfully")
+                if(req.User_Name==request.user.username):
+                    req.Done = True
+                    req.save()
+                    messages.success(request, "Your request has been removed from pending requests successfully")
+                else:
+                    messages.error(request, "You are unauthorised to mark the status of this request.")
+
             # After updating the database, the page reloads.
             return render(request, 'Pending_Request.html', context= {'lodging': pending_list, "messages": messages.get_messages(request)})
 
