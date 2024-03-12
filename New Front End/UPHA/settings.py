@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'Login.apps.LoginConfig',
     'Mess.apps.MessConfig',
     'Canteen.apps.CanteenConfig',
-    'Cleaning.apps.CleaningConfig',
+    # 'Cleaning.apps.CleaningConfig',
     'My_Account.apps.MyAccountConfig',
     'Booking.apps.BookingConfig',
     'Home.apps.HomeConfig',
+    'Complaints.apps.ComplaintsConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,10 +65,11 @@ TEMPLATES = [
                  'Login/templates/',
                  'Mess/templates/',
                  'Canteen/templates',
-                 'Cleaning/templates',
+                #  'Cleaning/templates',
                  'My_Account/templates',
                  'Booking/templates',
                  'Home/templates',
+                 'Complaints/templates',
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

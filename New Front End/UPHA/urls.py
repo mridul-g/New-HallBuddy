@@ -25,9 +25,10 @@ urlpatterns = [
     path('Mess/', include('Mess.urls')),
     path('', include('Login.urls')),
     path('Canteen/', include('Canteen.urls')),
-    path('Cleaning/', include('Cleaning.urls')),
+    # path('Cleaning/', include('Cleaning.urls')),
     path('My_Account/', include('My_Account.urls')),
     path('Booking/', include('Booking.urls')),
     path('Home', include('Home.urls')),
-    path('Home/', include('Home.urls'))
+    path('Home/', include('Home.urls')),
+    path('Complaints/', include('Complaints.urls')),
 ]
