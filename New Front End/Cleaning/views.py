@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import MarkedDate
 from datetime import datetime
+import json
 
 def calendar_view(request):
     marked_dates = MarkedDate.objects.all()
@@ -19,12 +20,19 @@ def get_marked_dates(request):
     return render(request, 'Cleaning_Management.html', {'marked_dates': marked_dates})
 
 def mark_date(request):
+    print("inside mark_date")
     if request.method == 'POST':
-        date_str = request.POST.get('date')
-        cleaned = request.POST.get('cleaned') == 'true'
-        date = datetime.strptime(date_str, "%d-%m-%y").date()
+        body = request.body
+        decoded_body = json.loads(body)
+        print("inside mark_date: request body : ", decoded_body)
+        date_str = decoded_body.get('date')
+        print("inside mark_date : ", date_str)
+        cleaned = decoded_body.get('cleaned') == 'true'
+        date = datetime.strptime(date_str, "%Y-%m-%d").date()
         MarkedDate.objects.update_or_create(date=date, defaults={'cleaned': cleaned})
+        print("date marked")
         # return JsonResponse({'status': 'ok'})
+
         return render(request, 'Cleaning_Management.html')
     return JsonResponse({'status': 'error'})
 

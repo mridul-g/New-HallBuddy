@@ -214,7 +214,8 @@
                 }
             
                 function markDateInDatabase(date, cleaned) {
-    fetch("/mark_date", {
+                    console.log("frontend : date : ", date)
+    fetch("/Cleaning/mark_date", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

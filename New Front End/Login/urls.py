@@ -11,5 +11,5 @@ urlpatterns = [
     path('SignUp', views.SignUp, name="SignUp"),
     path("OTP", views.OTP, name="OTP"),
     path("OTP_Send", views.OTP_Send, name="OTP_Send"),
-    path("Logout", views.Logout, name="Logout")
+    path("Logout", views.Logout, name="Logout"),
 ]
