@@ -70,11 +70,11 @@ def Lodge_Request(request):
     else: return render(request,"Error.html")
 
 
-def Cleaning_hall(request):
+def Complaints_hall(request):
     if request.user.is_authenticated:
         if request.user.designation == "Hall Manager":
             request_list = Cleaning_Request.objects.filter( Done=False )
-            return render(request, 'Cleaning_hall.html', context= {'lodging': request_list})
+            return render(request, 'Complaints_hall.html', context= {'lodging': request_list})
             # All requests made are displayed to the manager
         else:
             return render(request,"Error.html")

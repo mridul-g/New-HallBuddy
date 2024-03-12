@@ -9,6 +9,6 @@ urlpatterns = [
     path('Lodge_Request',views.Lodge_Request, name='Lodge_Request'),
     
     # hall manager
-    path('Cleaning_hall', views.Cleaning_hall, name='Cleaning_hall'),
+    path('Complaints_hall', views.Complaints_hall, name='Complaints_hall'),
     
 ]
