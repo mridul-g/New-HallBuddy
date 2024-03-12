@@ -101,7 +101,7 @@ def Student_Book_Extras(request):
         if request.user.designation == "Student":
             # Processes requests to purchase extras by students
             extras = Extras.objects.all().exclude(Item_Name = "").exclude(Item_Name = "None").order_by(
-                "-Start_Time"
+                "-Meal_Date"
             )  # QuerySet containing all extras
 
             if request.method == "POST":
@@ -109,56 +109,56 @@ def Student_Book_Extras(request):
                 quantity = int(request.POST.get("quantity"))  # number requested
                 idt = request.POST.get("identity")
                 order = Extras.objects.filter(id=idt)[0]  # key of the item ordered
-                if (
-                    int(order.Available_Orders) >= quantity
-                    and datetime.now().timestamp() > order.Start_Time.timestamp()
-                    and datetime.now().timestamp() < order.End_Time.timestamp()
-                ):
-                    # order is placed if the required number is available and the booking window is open
-                    order.Available_Orders = order.Available_Orders - quantity
+                # if (
+                #     int(order.Available_Orders) >= quantity
+                #     and datetime.now().timestamp() > order.Start_Time.timestamp()
+                #     and datetime.now().timestamp() < order.End_Time.timestamp()
+                # ):
+                #     # order is placed if the required number is available and the booking window is open
+                #     order.Available_Orders = order.Available_Orders - quantity
 
-                    pending_order = Orders(
-                        Meal=order.Meal,
-                        Order_Date_Time=datetime.now(),
-                        Meal_Date=order.Meal_Date,
-                        User_Name=request.user.username,
-                        Item_Name=order.Item_Name,
-                        Quantity=quantity,
-                        Price=order.Price,
-                        Amount=quantity * order.Price,
-                    )
+                #     pending_order = Orders(
+                #         Meal=order.Meal,
+                #         Order_Date_Time=datetime.now(),
+                #         Meal_Date=order.Meal_Date,
+                #         User_Name=request.user.username,
+                #         Item_Name=order.Item_Name,
+                #         Quantity=quantity,
+                #         Price=order.Price,
+                #         Amount=quantity * order.Price,
+                #     )
 
-                    order.save()
-                    pending_order.save()
+                #     order.save()
+                #     pending_order.save()
 
-                    bill_objects = Bill.objects.filter(
-                        User_Name=pending_order.User_Name,
-                        Bill_Month=pending_order.Order_Date_Time.month,
-                    )
+                #     bill_objects = Bill.objects.filter(
+                #         User_Name=pending_order.User_Name,
+                #         Bill_Month=pending_order.Order_Date_Time.month,
+                #     )
 
-                    if not bill_objects:
-                        # if it is the first order of the month from the user a new instance of Bill is initialised
-                        bill = Bill(
-                            User_Name=pending_order.User_Name,
-                            Bill_Month=pending_order.Order_Date_Time.month,
-                        )
-                        bill.Extras_Amount = pending_order.Amount
-                        bill.Month_Name = calendar.month_name[bill.Bill_Month]
-                        bill.messbillcalc()
-                        bill.save()
+                #     if not bill_objects:
+                #         # if it is the first order of the month from the user a new instance of Bill is initialised
+                #         bill = Bill(
+                #             User_Name=pending_order.User_Name,
+                #             Bill_Month=pending_order.Order_Date_Time.month,
+                #         )
+                #         bill.Extras_Amount = pending_order.Amount
+                #         bill.Month_Name = calendar.month_name[bill.Bill_Month]
+                #         bill.messbillcalc()
+                #         bill.save()
 
-                    else:
-                        # else the corresponding Bill object is updated
-                        bill = bill_objects[0]
-                        bill.Extras_Amount += pending_order.Amount
-                        bill.Month_Name = calendar.month_name[bill.Bill_Month]
-                        bill.messbillcalc()
-                        bill.save()
+                #     else:
+                #         # else the corresponding Bill object is updated
+                #         bill = bill_objects[0]
+                #         bill.Extras_Amount += pending_order.Amount
+                #         bill.Month_Name = calendar.month_name[bill.Bill_Month]
+                #         bill.messbillcalc()
+                #         bill.save()
 
-                    messages.success(request, "Order Booked")
+                #     messages.success(request, "Order Booked")
 
-                else:
-                    messages.error(request, "Order cannot be booked now")
+                # else:
+                #     messages.error(request, "Order cannot be booked now")
 
             return render(
                 request,
@@ -434,9 +434,9 @@ def Manager_Modify_Menu(request):
 def Manager_Extra_Items(request):
     # Adds extras to the weekly menu
     if request.user.is_authenticated:
-        if request.user.designation == "Mess Manager":
+        if request.user.designation == "Hall Manager":
 
-            extras = Extras.objects.all().order_by("-Start_Time")
+            extras = Extras.objects.all().order_by("-Meal_Date")
 
             if request.method == "POST":
                 
@@ -458,42 +458,42 @@ def Manager_Extra_Items(request):
                         if meal_date is not None:
 
                             meal_date = datetime.strptime(str(meal_date), "%Y-%m-%d")
-                            meal = request.POST.get("meal" + str(obj.id))
+                            # meal = request.POST.get("meal" + str(obj.id))
                             item = request.POST.get("item" + str(obj.id))
-                            capacity = request.POST.get("capacity" + str(obj.id))
-                            price = request.POST.get("price" + str(obj.id))
+                            # capacity = request.POST.get("capacity" + str(obj.id))
+                            # price = request.POST.get("price" + str(obj.id))
 
-                            start_time = request.POST.get("start_time" + str(obj.id))
-                            start_time = datetime.strptime(
-                                str(start_time), "%Y-%m-%dT%H:%M"
-                            )
-                            end_time = request.POST.get("end_time" + str(obj.id))
-                            end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
+                            # start_time = request.POST.get("start_time" + str(obj.id))
+                            # start_time = datetime.strptime(
+                            #     str(start_time), "%Y-%m-%dT%H:%M"
+                            # )
+                            # end_time = request.POST.get("end_time" + str(obj.id))
+                            # end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
                             
-                            if meal_date.date()<end_time.date():            # checks the time
-                                if flag == 0:
-                                    messages.error(request, "Meal date must be greater than end time.")
-                                flag = 1
-                                continue
+                            # if meal_date.date()<end_time.date():            # checks the time
+                            #     if flag == 0:
+                            #         messages.error(request, "Meal date must be greater than end time.")
+                            #     flag = 1
+                            #     continue
                             
-                            if start_time > end_time:                       # checks the time
-                                if flag == 0:
-                                    messages.error(request, "Start time must be less than end time.")
-                                flag = 1
-                                continue
+                            # if start_time > end_time:                       # checks the time
+                            #     if flag == 0:
+                            #         messages.error(request, "Start time must be less than end time.")
+                            #     flag = 1
+                            #     continue
                             
-                            else:
-                                extra_items = Extras.objects.filter(id=obj.id)[0]
-                                extra_items.Meal = meal
-                                extra_items.Meal_Date = meal_date
-                                extra_items.Item_Name = item
-                                extra_items.Capacity = capacity
-                                extra_items.Price = price
-                                extra_items.Start_Time = start_time
-                                extra_items.End_Time = end_time
-                                extra_items.Available_Orders = capacity
+                            
+                            extra_items = Extras.objects.filter(id=obj.id)[0]
+                            # extra_items.Meal = meal
+                            extra_items.Meal_Date = meal_date
+                            extra_items.Item_Name = item
+                            # extra_items.Capacity = capacity
+                            # extra_items.Price = price
+                            # extra_items.Start_Time = start_time
+                            # extra_items.End_Time = end_time
+                            # extra_items.Available_Orders = capacity
 
-                                extra_items.save()
+                            extra_items.save()
                                 
                         else:
                             obj.delete()
@@ -503,12 +503,17 @@ def Manager_Extra_Items(request):
                     for item1 in Extras.objects.all():
                         for item2 in Extras.objects.all():
                             if item1.id != item2.id:
-                                if (item1.Meal_Date == item2.Meal_Date) and (item1.Meal == item2.Meal) and (item1.Item_Name == item2.Item_Name):
+
+                                if (item1.Meal_Date == item2.Meal_Date)  and (item1.Item_Name == item2.Item_Name):
                                     if item1:
                                         item1.delete()
                                         break
+                                # if (item1.Meal_Date == item2.Meal_Date) and (item1.Meal == item2.Meal) and (item1.Item_Name == item2.Item_Name):
+                                #     if item1:
+                                #         item1.delete()
+                                #         break
 
-                    obj = Extras(Meal_Date =  datetime.today(),Start_Time = datetime.now(),End_Time = datetime.now())
+                    obj = Extras(Meal_Date =  datetime.today())
                     obj.save()
                     return render(
                         request,
@@ -520,7 +525,7 @@ def Manager_Extra_Items(request):
                     for item1 in Extras.objects.all():
                         for item2 in Extras.objects.all():
                             if item1.id != item2.id:
-                                if (item1.Meal_Date == item2.Meal_Date) and (item1.Meal == item2.Meal) and (item1.Item_Name == item2.Item_Name):
+                                if (item1.Meal_Date == item2.Meal_Date) and (item1.Item_Name == item2.Item_Name):
                                     if item1:
                                         item1.delete()
                                         break
@@ -566,7 +571,7 @@ def Manager_Extra_Items(request):
                     for item1 in Extras.objects.all():
                         for item2 in Extras.objects.all():
                             if item1.id != item2.id:
-                                if (item1.Meal_Date == item2.Meal_Date) and (item1.Meal == item2.Meal) and (item1.Item_Name == item2.Item_Name):
+                                if (item1.Meal_Date == item2.Meal_Date) and (item1.Item_Name == item2.Item_Name):
                                     if item1:
                                         item1.delete()
                                         break

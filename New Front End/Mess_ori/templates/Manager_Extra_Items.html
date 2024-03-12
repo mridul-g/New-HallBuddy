@@ -38,13 +38,13 @@
           </tr>
           <tr>
             <th>S. No.</th>
-            <th>Date</th>
-            <!-- <th>Meal</th> -->
+            <th>Meal Date</th>
+            <th>Meal</th>
             <th>Item</th>
-            <!-- <th>Capacity</th>
+            <th>Capacity</th>
             <th>Price</th>
             <th>Start Time</th>
-            <th>End Time</th> -->
+            <th>End Time</th>
             <th>Delete</th>
           </tr>
 
@@ -60,7 +60,7 @@
                 class = "a"
               />
             </td>
-            <!-- <td>
+            <td>
               <select
                 name="meal{{items.id}}"
                 value="{{items.Meal}}"
@@ -81,12 +81,12 @@
                 <option  name = "b2">Dinner</option>
                 {% endif %}
               </select>
-            </td> -->
+            </td>
             <td>
               <input
                 required
                 type="text"
-                maxlength="1000"
+                maxlength="100"
                 name="item{{items.id}}"
                 value="{{items.Item_Name}}"
                 placeholder="Enter New Item"
@@ -95,7 +95,7 @@
                 autofocus
               />
             </td>
-            <!-- <td>
+            <td>
               <input
                 required
                 type="number"
@@ -106,8 +106,8 @@
                 style="width: 45%; text-align: center"
                 class = "d"
               />
-            </td> -->
-            <!-- <td>
+            </td>
+            <td>
               <input
                 required
                 type="number"
@@ -137,7 +137,7 @@
                 value="{{items.End_Time|date:'Y-m-d H:i'}}"
                 class = "g"
               />
-            </td> -->
+            </td>
             <td>
               <button type="submit" name="delete" value="{{items.id}}">
                 <input type="hidden" name="editable_mode" />Delete
@@ -153,30 +153,30 @@
 
             </th>
             <th class="main_head">
-              <button type="submit" name="add_hidden_item" >Add Notice</button>
+              <button type="submit" name="add_hidden_item" >Add New Item</button>
             </th>
           </tr>
           <tr>
             <th>S. No.</th>
-            <th>Date</th>
-            <!-- <th>Meal</th> -->
-            <th>Description</th>
-            <!-- <th>Capacity</th>
+            <th>Meal Date</th>
+            <th>Meal</th>
+            <th>Item</th>
+            <th>Capacity</th>
             <th>Price</th>
             <th>Start Time</th>
-            <th>End Time</th>-->
-            <th>Delete</th> 
+            <th>End Time</th>
+            <th>Delete</th>
           </tr>
           {% for items in extra_item %}
           <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{items.Meal_Date}}</td>
-            <!-- <td>{{items.Meal}}</td> -->
+            <td>{{items.Meal}}</td>
             <td>{{items.Item_Name}}</td>
-            <!-- <td>{{items.Capacity}}</td>
+            <td>{{items.Capacity}}</td>
             <td>{{items.Price}}</td>
             <td>{{items.Start_Time}}</td>
-            <td>{{items.End_Time}}</td> -->
+            <td>{{items.End_Time}}</td>
             <td>
               <button type="submit" name="delete" value="{{items.id}}">
                 Delete
