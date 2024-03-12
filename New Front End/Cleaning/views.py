@@ -27,7 +27,7 @@ def mark_date(request):
         print("inside mark_date: request body : ", decoded_body)
         date_str = decoded_body.get('date')
         print("inside mark_date : ", date_str)
-        cleaned = decoded_body.get('cleaned') == 'true'
+        cleaned = decoded_body.get('cleaned') == True
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
         MarkedDate.objects.update_or_create(date=date, defaults={'cleaned': cleaned})
         print("date marked")
