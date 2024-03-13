@@ -193,99 +193,101 @@
                   <span>{{ request.user.name}}</span>
                 </span>
               </div>
-              <div class="guest-room-booking-group56">
-                <div class="guest-room-booking-group52">
-                  <b class="guest-room-booking-text04">
-                    <a href="../../Home" class="guest-room-booking-text08">
-                    <span>Dashboard</span>
-                  </b>
-                  <img
-                    alt="dashboardblack24dp113132"
-                    src="/static/public/external/dashboardblack24dp113132-ln5i.svg"
-                    class="guest-room-booking-dashboardblack24dp11"
-                  />
-                </div>
-                <div class="guest-room-booking-group51">
-                  <span class="guest-room-booking-text06">
-                    <span>Profile</span>
-                  </span>
-                  <div class="guest-room-booking-peoplealtblack24dp1">
-                    <div class="guest-room-booking-group"></div>
-                    <div class="guest-room-booking-group1">
-                      <div class="guest-room-booking-group2">
-                        <img
-                          alt="Vector3133"
-                          src="/static/public/external/vector3133-tpso.svg"
-                          class="guest-room-booking-vector"
-                        />
-                        <img
-                          alt="Vector3134"
-                          src="/static/public/external/vector3134-8g9f.svg"
-                          class="guest-room-booking-vector1"
-                        />
-                        <img
-                          alt="Vector3134"
-                          src="/static/public/external/vector3134-q2cg.svg"
-                          class="guest-room-booking-vector2"
-                        />
-                        <img
-                          alt="Vector3134"
-                          src="/static/public/external/vector3134-2hos.svg"
-                          class="guest-room-booking-vector3"
-                        />
+              {% if "/Booking" not in request.path %}
+                <div class="guest-room-booking-group56">
+                  <div class="guest-room-booking-group52">
+                    <b class="guest-room-booking-text04">
+                      <a href="../../Home" class="guest-room-booking-text08">
+                      <span>Dashboard</span>
+                    </b>
+                    <img
+                      alt="dashboardblack24dp113132"
+                      src="/static/public/external/dashboardblack24dp113132-ln5i.svg"
+                      class="guest-room-booking-dashboardblack24dp11"
+                    />
+                  </div>
+                  <div class="guest-room-booking-group51">
+                    <span class="guest-room-booking-text06">
+                      <span>Profile</span>
+                    </span>
+                    <div class="guest-room-booking-peoplealtblack24dp1">
+                      <div class="guest-room-booking-group"></div>
+                      <div class="guest-room-booking-group1">
+                        <div class="guest-room-booking-group2">
+                          <img
+                            alt="Vector3133"
+                            src="/static/public/external/vector3133-tpso.svg"
+                            class="guest-room-booking-vector"
+                          />
+                          <img
+                            alt="Vector3134"
+                            src="/static/public/external/vector3134-8g9f.svg"
+                            class="guest-room-booking-vector1"
+                          />
+                          <img
+                            alt="Vector3134"
+                            src="/static/public/external/vector3134-q2cg.svg"
+                            class="guest-room-booking-vector2"
+                          />
+                          <img
+                            alt="Vector3134"
+                            src="/static/public/external/vector3134-2hos.svg"
+                            class="guest-room-booking-vector3"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="guest-room-booking-group50">
+                    <a href="../../Home/map" class="guest-room-booking-text08">
+                      <span>Map</span>
+                    </a>
+                  </div>
+                  <div class="guest-room-booking-group53">
+                    <a href="Home/contact.html" class="guest-room-booking-text10">
+                      <span>Contact</span>
+                    </a>
+                  </div>
+                  <!-- dashboard-->
+                  {% if request.path == "/Home" or request.path == "/Home/" %}
+                  <img
+                    alt="Rectangle73134"
+                    src="/static/public/external/rectangle73134-y8t-200w.png"
+                    class="guest-room-booking-rectangle7"
+                  />
+                  {% endif%}
+                  <!-- profile-->
+                  {% if request.path == "/Home/profile"%}
+                  <img
+                    alt="Rectangle73134"
+                    src="/static/public/external/rectangle73134-y8t-200w.png"
+                    class="guest-room-booking-rectangle8"
+                  />
+                  {% endif %}
+                  <!-- map-->
+                  {% if request.path == "/Home/map"%}
+                  <img
+                    alt="Rectangle73134"
+                    src="/static/public/external/rectangle73134-y8t-200w.png"
+                    class="guest-room-booking-rectangle9"
+                  />
+                  {% endif%}
+                  {% if request.path == "/Home/shop" %}
+                  <img
+                    alt="Rectangle73134"
+                    src="/static/public/external/rectangle73134-y8t-200w.png"
+                    class="guest-room-booking-rectangle10"
+                  />
+                  {% endif%}
+                  {% if request.path == "/Home/contact" %}
+                  <img
+                    alt="Rectangle73134"
+                    src="/static/public/external/rectangle73134-y8t-200w.png"
+                    class="guest-room-booking-rectangle11"
+                  />
+                  {% endif%}
                 </div>
-                <div class="guest-room-booking-group50">
-                  <a href="../../Home/map" class="guest-room-booking-text08">
-                    <span>Map</span>
-                  </a>
-                </div>
-                <div class="guest-room-booking-group53">
-                  <a href="Home/contact.html" class="guest-room-booking-text10">
-                    <span>Contact</span>
-                  </a>
-                </div>
-                <!-- dashboard-->
-                {% if request.path == "/Home" or request.path == "/Home/" %}
-                <img
-                  alt="Rectangle73134"
-                  src="/static/public/external/rectangle73134-y8t-200w.png"
-                  class="guest-room-booking-rectangle7"
-                />
-                {% endif%}
-                <!-- profile-->
-                {% if request.path == "/Home/profile"%}
-                <img
-                  alt="Rectangle73134"
-                  src="/static/public/external/rectangle73134-y8t-200w.png"
-                  class="guest-room-booking-rectangle8"
-                />
-                {% endif %}
-                <!-- map-->
-                {% if request.path == "/Home/map"%}
-                <img
-                  alt="Rectangle73134"
-                  src="/static/public/external/rectangle73134-y8t-200w.png"
-                  class="guest-room-booking-rectangle9"
-                />
-                {% endif%}
-                {% if request.path == "/Home/shop" %}
-                <img
-                  alt="Rectangle73134"
-                  src="/static/public/external/rectangle73134-y8t-200w.png"
-                  class="guest-room-booking-rectangle10"
-                />
-                {% endif%}
-                {% if request.path == "/Home/contact" %}
-                <img
-                  alt="Rectangle73134"
-                  src="/static/public/external/rectangle73134-y8t-200w.png"
-                  class="guest-room-booking-rectangle11"
-                />
-                {% endif%}
-              </div>
+              {% endif %}
               <div class="guest-room-booking-frame1358">
                 <div class="guest-room-booking-taskblack24dp1">
                   <div class="guest-room-booking-group3"></div>
@@ -308,6 +310,7 @@
                   </span>
                 </div>
               </div>
+              {% if "/Booking" not in request.path %}
               <a href="../../Home/map" class="guest-room-booking-link">
                 <img
                   alt="fibsmapmarker3136"
@@ -328,7 +331,9 @@
               <a href="../../Home/shop" class="guest-room-booking-text14">
                 <span>Shop</span>
               </a>
+              {% endif %}
             </div>
+            
           </div>
           <button class="guest-room-booking-frame-button-master"></button>
           <img
