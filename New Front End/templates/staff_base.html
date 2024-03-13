@@ -287,6 +287,55 @@
                   />
                   {% endif%}
                 </div>
+              {% comment %} {% endif %} {% endcomment %}
+              {% else %}
+                  <div class="guest-room-booking-group56">
+                    <div class="guest-room-booking-group52">
+                      <b class="guest-room-booking-text04">
+                        <a href="../../Home" class="guest-room-booking-text08">
+                        <span>Pending Requesteds</span>
+                        </a>
+                      </b>
+                      <img
+                        alt="dashboardblack24dp113132"
+                        src="/static/public/external/dashboardblack24dp113132-ln5i.svg"
+                        class="guest-room-booking-dashboardblack24dp11"
+                      />
+                    </div>
+                    <div class="guest-room-booking-group51">
+                      <span class="guest-room-booking-text06">
+                        <span>Aprooved Requests</span>
+                      </span>
+                      <div class="guest-room-booking-peoplealtblack24dp1">
+                        <div class="guest-room-booking-group"></div>
+                        <div class="guest-room-booking-group1">
+                          <div class="guest-room-booking-group2">
+                            <img
+                              alt="Vector3133"
+                              src="/static/public/external/vector3133-tpso.svg"
+                              class="guest-room-booking-vector"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Pending-->
+                    {% if request.path == "/Booking/PendingRequest" or request.path == "/Home/" %}
+                    <img
+                      alt="Rectangle73134"
+                      src="/static/public/external/rectangle73134-y8t-200w.png"
+                      class="guest-room-booking-rectangle7"
+                    />
+                    {% endif%}
+                    <!-- Aprooved Requests-->
+                    {% if request.path == "/Booking/Aprooved"%}
+                    <img
+                      alt="Rectangle73134"
+                      src="/static/public/external/rectangle73134-y8t-200w.png"
+                      class="guest-room-booking-rectangle8"
+                    />
+                    {% endif %}
+                  </div>
               {% endif %}
               <div class="guest-room-booking-frame1358">
                 <div class="guest-room-booking-taskblack24dp1">
@@ -303,11 +352,11 @@
                       />
                     </div>
                   </div>
+                  <a href="/Logout">
                   <span class="guest-room-booking-text12">
-                    <a href = "/Logout">
                     <span>Logout</span>
-                    </a>
                   </span>
+                  </a>
                 </div>
               </div>
               {% if "/Booking" not in request.path %}
@@ -347,7 +396,7 @@
             class="guest-room-booking-bellfill"
           />
           <a
-            href="/Mess/Manager_Extra_Items"
+            href="../../Complaints/Complaints_hall"
           >
           <span class="guest-room-booking-text16"><span>Complaint</span></span>
           {% comment %} {% if request.path == "/Home" or request.path == "/Home/" or request.path == "/Home/map" or request.path == "/Home/shop" or request.path == "/Home/contact" or request.path == "/Home/profile"%} {% endcomment %}
@@ -380,7 +429,7 @@
           />
           {% endif %}
           <span class="guest-room-booking-text18"><span>(10)</span></span>
-          <a href="../../Home" class="guest-room-booking-text20">
+          <a href="/Mess/Manager_Extra_Items" class="guest-room-booking-text20">
             <span>Home</span>
           </a>
           <a href="/Cleaning" class="guest-room-booking-text22">
