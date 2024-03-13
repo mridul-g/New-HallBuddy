@@ -8,6 +8,8 @@ from django.contrib import messages
 from Home.views import Make_Homepage
 import re
 
+subject_ = 'OTP for SignUp - '
+
 def Login(request):
     # for logging in the user
     if request.method== 'POST':                         # gets the username and password
@@ -152,6 +154,8 @@ def Reset_Password(request):
                 return render(request, "Reset_Password.html", context={'messages':messages.get_messages(request)})
             request.session['5']=username
             request.session['4']=1
+            global subject_
+            subject_ = 'OTP for Reset Password - '
             return redirect(OTP_Send)
     request.session.set_test_cookie()
     return render(request, "Reset_Password.html")
@@ -185,6 +189,8 @@ def SignUp(request):
             request.session['1']=username
             request.session['2']=designation
             request.session['4']=0
+            global subject_
+            subject_ = 'OTP for SignUp - '
             return redirect(OTP_Send)
         else:
             messages.error(request, "Please enable cookies and then try again")
@@ -218,7 +224,8 @@ def OTP_Send(request):
                 if request.session['4']==1:
                     username=request.session['5']
                     name=User_class.objects.filter(username=username)[0].name
-                subject = f'OTP for SignUp - {otp}'
+                
+                subject = f'{subject_} {otp}'
                 message = f'Dear {name}, Your OTP for HallBuddy account is {otp}. Valid only for 5 mins. Please do not share this with any other person.'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [f'{username}@iitk.ac.in',]
