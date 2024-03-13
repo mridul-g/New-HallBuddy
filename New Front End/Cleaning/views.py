@@ -16,8 +16,8 @@ def calendar_view(request):
 
 def get_marked_dates(request):
     marked_dates = list(MarkedDate.objects.values('date', 'cleaned'))
-    # return JsonResponse({'marked_dates': marked_dates})
-    return render(request, 'Cleaning_Management.html', {'marked_dates': marked_dates})
+    return JsonResponse({'marked_dates': marked_dates})
+    # return Json.{'marked_dates': marked_dates}
 
 def mark_date(request):
     print("inside mark_date")
@@ -29,7 +29,12 @@ def mark_date(request):
         print("inside mark_date : ", date_str)
         cleaned = decoded_body.get('cleaned') == True
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
-        MarkedDate.objects.update_or_create(date=date, defaults={'cleaned': cleaned})
+        obj = MarkedDate(
+            date=date,
+            cleaned = cleaned
+        )
+        obj.save()
+        #MarkedDate.objects.update_or_create(date=date, defaults=None) #{'cleaned': cleaned})
         print("date marked")
         # return JsonResponse({'status': 'ok'})
 

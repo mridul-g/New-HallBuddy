@@ -78,7 +78,7 @@
             left:20%;
             overflow-y: auto;
             position:absolute;
-            background-color:
+            background-color:rgba(46, 46, 72, 1);
         }
         .heading{
             padding-left: 50px;
@@ -154,20 +154,36 @@
                         daysContainer.appendChild(dayNameCell);
                     }
 
-                    // fetch('{% url "get_marked_dates" %}')
-                    // .then(response => response.json())
-                    // .then(data => {
-                    //     const markedDates = data.marked_dates;
-                    //     markedDates.forEach(date => {
-                    //         const [year, month, day] = date.split('-').map(Number);
-                    //         const dateDivIndex = day + firstDayOfMonth.getDay() - 1;
-                    //         const dateDiv = calendar.querySelectorAll('.date')[dateDivIndex];
-                    //         dateDiv.classList.add('green');
-                    //     });
-                    // })
-                    // .catch(error => {
-                    //     console.error('Error fetching marked dates:', error);
-                    // });
+                    fetch("get_marked_dates")
+                    .then(
+                        response => {
+                            console.log(response)
+                            return response.json()
+                        })
+                    .then(data => {
+                        console.log("DATA IS ",data)
+                        const markedDates = data.marked_dates;
+                        markedDates.forEach(d => {
+                            console.log(d["date"])
+                            const [year, month, day] = d["date"].split('-').map(Number);
+                            const cleaned = d["cleaned"]
+                            console.log("DMMYYY ",day,month,year)
+                            const dateDivIndex = day + firstDayOfMonth.getDay() - 1;
+                            const dateDiv = calendar.querySelectorAll('.date')[dateDivIndex];
+                            console.log("DATEDIV IS ",dateDivIndex)
+                            if(cleaned){
+                            dateDiv.classList.remove('red');
+                            dateDiv.classList.add('green');
+                            }
+                            else {
+                                dateDiv.classList.remove('green');
+                        dateDiv.classList.add('red'); 
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching marked dates:', error);
+                    });
                     
                     for (let i = 0; i < startingDay; i++) {
                         const emptyCell = document.createElement('div');

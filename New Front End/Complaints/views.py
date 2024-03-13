@@ -65,7 +65,7 @@ def Lodge_Request(request):
                         category=category,
                         sub_category=sub_category,
                         Cleaning_DateTime=datetime.now() )
-                    req_object.save()
+                    req_object.save()   
                     messages.success(request, "Your request has been sent!")
                 return render(request, "Lodge_Request.html", context={"messages": messages.get_messages(request)})
             return render(request, "Lodge_Request.html")
