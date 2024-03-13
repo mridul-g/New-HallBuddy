@@ -346,28 +346,30 @@
           <a href="../../Complaints/Pending_Request">
           <span class="guest-room-booking-text16"><span>Complaint</span></span>
           </a>
-          {% if request.path == "/Home" or request.path == "/Home/" or request.path == "/Home/map" or request.path == "/Home/shop" or request.path == "/Home/contact" or request.path == "/Home/profile"%}
+          {% comment %} {% if request.path == "/Home" or request.path == "/Home/" or request.path == "/Home/map" or request.path == "/Home/shop" or request.path == "/Home/contact" or request.path == "/Home/profile"%} {% endcomment %}
+          {% if "/Home" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
             class="guest-room-booking-line1"
           />
           {% endif %}
-          {% if "Complaints" in request.path %}
+          {% if "/Complaints" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
             class="guest-room-booking-line2"
           />
           {% endif %}
-          {% if request.path == "/Booking/guestroom" or request.path == "/Booking/guestroom_pb" %}
+          {% comment %} {% if request.path == "/Booking/guestroom" or request.path == "/Booking/guestroom_pb" %} {% endcomment %}
+          {% if "/Booking" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
             class="guest-room-booking-line3"
           />
           {% endif %}
-          {% if "Cleaning" in request.path %}
+          {% if "/Cleaning" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
