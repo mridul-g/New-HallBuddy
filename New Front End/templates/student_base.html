@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="english">
   <head>
-    <title>exported project</title>
+    <title>HallBuddy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta property="twitter:card" content="summary_large_image" />
@@ -23,7 +23,7 @@
         letter-spacing: normal;
         line-height: 1.15;
         color: var(--dl-color-gray-black);
-        background-color: var(--dl-color-gray-white);
+        background-color: rgba(5, 13, 56, 1);
 
       }
     </style>
@@ -196,7 +196,7 @@
               <div class="guest-room-booking-group56">
                 <div class="guest-room-booking-group52">
                   <b class="guest-room-booking-text04">
-                    <a href="../../Home" class="guest-room-booking-text08">
+                    <a href="../../Mess/Student_Book_Extras" class="guest-room-booking-text08">
                     <span>Dashboard</span>
                   </b>
                   <img
@@ -294,18 +294,20 @@
                   <div class="guest-room-booking-logoutblack24dp21">
                     <div class="guest-room-booking-group4"></div>
                     <div class="guest-room-booking-group5">
+                      <a href = "/Logout">
                       <img
                         alt="Vector3135"
                         src="/static/public/external/vector3135-4t7q.svg"
                         class="guest-room-booking-vector4"
                       />
+                      </a>
                     </div>
                   </div>
+                  <a href="/Logout">
                   <span class="guest-room-booking-text12">
-                    <a href = "/Logout">
                     <span>Logout</span>
-                    </a>
                   </span>
+                  </a>
                 </div>
               </div>
               <a href="../../Home/map" class="guest-room-booking-link">
@@ -341,29 +343,33 @@
             src="/static/public/external/bellfill3136-dwbm.svg"
             class="guest-room-booking-bellfill"
           />
+          <a href="../../Complaints/Pending_Request">
           <span class="guest-room-booking-text16"><span>Complaint</span></span>
-          {% if request.path == "/Home" or request.path == "/Home/" or request.path == "/Home/map" or request.path == "/Home/shop" or request.path == "/Home/contact" or request.path == "/Home/profile"%}
+          </a>
+          {% comment %} {% if request.path == "/Home" or request.path == "/Home/" or request.path == "/Home/map" or request.path == "/Home/shop" or request.path == "/Home/contact" or request.path == "/Home/profile"%} {% endcomment %}
+          {% if "/Home" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
             class="guest-room-booking-line1"
           />
           {% endif %}
-          {% if request.path == "/Complaints"%}
+          {% if "/Complaints" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
             class="guest-room-booking-line2"
           />
           {% endif %}
-          {% if request.path == "/Booking/guestroom" or request.path == "/Booking/guestroom_pb" %}
+          {% comment %} {% if request.path == "/Booking/guestroom" or request.path == "/Booking/guestroom_pb" %} {% endcomment %}
+          {% if "/Booking" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
             class="guest-room-booking-line3"
           />
           {% endif %}
-          {% if request.path == "/Cleaning"%}
+          {% if "/Cleaning" in request.path %}
           <img
             alt="Line13136"
             src="/static/public/external/line13136-3b7w.svg"
@@ -371,10 +377,10 @@
           />
           {% endif %}
           <span class="guest-room-booking-text18"><span>(10)</span></span>
-          <a href="../../Home" class="guest-room-booking-text20">
+          <a href="../../Mess/Student_Book_Extras" class="guest-room-booking-text20">
             <span>Home</span>
           </a>
-          <a href="Cleaning.html" class="guest-room-booking-text22">
+          <a href="/Cleaning" class="guest-room-booking-text22">
             <span>Room Cleaning</span>
           </a>
           <a
@@ -384,7 +390,7 @@
           <span>Guest Room Booking</span>
           </a>
           <img
-            src="/static/public/hallbuddy1-1100h.png"
+            src="/static/public/external/hallbuddy-200h.png"
             alt="image"
             class="guest-room-booking-image"
           />
