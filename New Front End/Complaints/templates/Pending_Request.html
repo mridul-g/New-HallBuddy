@@ -87,20 +87,19 @@
                 </thead>
                 <tbody>
                   {% for i in lodging reversed %}
-                <tr>
-                <form method="post" action="Pending_Request">
-                  {% csrf_token %}
-                <td class="a">{{i.User_Name}}</td>
-                <td class="b">{{i.Place}}-{{i.location}}</td>
-                <td class="b">{{i.category}}</td>
-                <td class="b">{{i.sub_category}}</td>
-                <td class="a">{{i.Cleaning_DateTime}}</td>
-                <td class="d">{{i.comments}}</td>
-                <td><button type="submit" name = "identity" value = {{i.id}}>Done</button></td>
-                </form>
-                </tr>
-                {% endfor %}
-                </table>
+                    <tr>
+                    <form method="post" action="Pending_Request">
+                      {% csrf_token %}
+                      <td class="a">{{i.User_Name}}</td>
+                      <td class="b">{{i.Place}}-{{i.location}}</td>
+                      <td class="b">{{i.category}}</td>
+                      <td class="b">{{i.sub_category}}</td>
+                      <td class="a">{{i.Cleaning_DateTime}}</td>
+                      <td class="d">{{i.comments}}</td>
+                      <td><button type="submit" name = "identity" value = {{i.id}}>Done</button></td>
+                    </form>
+                    </tr>
+                  {% endfor %}
                 </tbody>
               </table>
         </div>
