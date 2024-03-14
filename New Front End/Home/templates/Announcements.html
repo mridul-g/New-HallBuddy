@@ -4,14 +4,13 @@
     <title>Announcements</title>
     <style>
         .main_div{
-            width:80%;
-        height: 70%;
-        top:25%;
-        left:25%;
-        overflow-y: auto;
-        position: absolute;
-        background-color: rgba(46, 46, 72, 1);
-
+          width:75%;
+          height: 75%;
+          top:25%;
+          left:25%;
+          overflow-y: auto;
+          position: absolute;
+          background-color: rgba(46, 46, 72, 1);
         }
         .heading{
             padding-left: 10px;
@@ -22,7 +21,7 @@
         .disp_ar{
             background-color: hsl(0, 8%, 77%);
             position: relative;
-            width:80%;
+            width:90%;
             height: 100%;
             top:5%;
             border-radius: 10px;
@@ -38,11 +37,6 @@
     <div class="main_div">
         <span><h1 class="heading">Announcements</h1></span>
         <span>
-        <!-- <a href ="/Complaints/Lodge_Request" style="position:absolute;right: 30%;top:10px;">
-        <button class="btn btn-success" {% if request.path == "/Complaints/Lodge_Request" %} {% endif %}>
-        New Complaint +
-        </button>
-      </a> -->
         </span>
         <div class="disp_ar">
             <h2 style="color:darkmagenta;padding-left: 10px;padding-top: 10px;">All Notices</h2>
@@ -56,19 +50,12 @@
                 </thead>
                 <tbody>
                     {%for item in announcements%}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td class = "a">{{item.Item_Name}}</td>
-                        <td class = "b">{{item.Announcement_Date}}</td>
-                        <!-- <td class = "c">{{item.Meal}}</td>
-                        <td class = "d">{{item.Start_Time}}</td>
-                        <td class = "e">{{item.End_Time}}</td>
-                        <td class = "f">{{item.Available_Orders}}</td>
-                        <td class = "g">{{item.Price}}</td> -->
-                        <!-- <td class = "h"><input style="max-width: 3.2em;" type = "number" min = "1" max="50" value = "1" name = "quantity" required></td>
-                        <td><button type="submit" name = "submit"><input type="hidden" name = "identity" value = "{{item.id}}" required>Book</button></td> -->
-                      </form>
-                    </tr>
+                      <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{item.Item_Name}}</td>
+                          <td>{{item.Announcement_Date}}</td>
+                      </tr>
+                    {%endfor%}
                 </table>
                 </tbody>
               </table>
