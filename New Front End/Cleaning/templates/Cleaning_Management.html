@@ -172,12 +172,12 @@
                             const dateDiv = calendar.querySelectorAll('.date')[dateDivIndex];
                             console.log("DATEDIV IS ",dateDivIndex)
                             if(cleaned){
-                            dateDiv.classList.remove('red');
-                            dateDiv.classList.add('green');
+                                dateDiv.classList.remove('red');
+                                dateDiv.classList.add('green');
                             }
                             else {
                                 dateDiv.classList.remove('green');
-                        dateDiv.classList.add('red'); 
+                                dateDiv.classList.add('red'); 
                             }
                         });
                     })
@@ -215,19 +215,18 @@
                             const dateDiv = calendar.querySelectorAll('.date')[dateDivIndex];
                             console.log("DATEDIV IS ",dateDivIndex)
                             if(cleaned){
-                            dateDiv.classList.remove('red');
-                            dateDiv.classList.add('green');
+                                dateDiv.classList.remove('red');
+                                dateDiv.classList.add('green');
                             }
                             else {
                                 dateDiv.classList.remove('green');
-                        dateDiv.classList.add('red'); 
+                                dateDiv.classList.add('red'); 
                             }
                         });
                     })
                     .catch(error => {
                         console.error('Error fetching marked dates:', error);
                     });
-                      
                         dateDiv.addEventListener('click', () => askCleaningStatus(i, month, year));
                         daysContainer.appendChild(dateDiv);
                     }

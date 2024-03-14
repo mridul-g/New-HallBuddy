@@ -28,9 +28,7 @@ class UserManager(BaseUserManager):
                 username = username,
             )
             user.set_password(password)
-            user.save()
             user.is_admin = True
-            user.set_password(password)
             user.save()
             return user
 
@@ -39,7 +37,7 @@ class User_class(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     objects = UserManager()
     name = models.CharField(max_length=50)
-    Designation_Choices = (('Student','Student'),('Hall Manager','Hall Manager'),('Mess Manager','Mess Manager'),('Canteen Manager','Canteen Manager'), ('Sports Secy', 'Sports Secy'))
+    Designation_Choices = (('Student','Student'),('Hall Manager','Hall Manager'))
     designation = models.CharField(
         max_length=15,
         choices=Designation_Choices,
