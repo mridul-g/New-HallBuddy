@@ -182,7 +182,7 @@
             <div class="guest-room-booking-frame1364">
               <div class="guest-room-booking-group54">
                 <span class="guest-room-booking-text">
-                  <span>220893, D-203</span>
+                  <span> {{ request.user.designation }} </span>
                 </span>
                 <img
                   alt="Ellipse2123132"
@@ -292,7 +292,7 @@
                   <div class="guest-room-booking-group56">
                     <div class="guest-room-booking-group52">
                       <b class="guest-room-booking-text04">
-                        <a href="../../Home" class="guest-room-booking-text08">
+                        <a href="/Booking/pending" class="guest-room-booking-text08">
                         <span>Pending Requesteds</span>
                         </a>
                       </b>
@@ -304,7 +304,9 @@
                     </div>
                     <div class="guest-room-booking-group51">
                       <span class="guest-room-booking-text06">
+                        <a href="/Booking/aprooved" class="guest-room-booking-text08">
                         <span>Aprooved Requests</span>
+                        </a>
                       </span>
                       <div class="guest-room-booking-peoplealtblack24dp1">
                         <div class="guest-room-booking-group"></div>
@@ -320,7 +322,7 @@
                       </div>
                     </div>
                     <!-- Pending-->
-                    {% if request.path == "/Booking/PendingRequest" or request.path == "/Home/" %}
+                    {% if request.path == "/Booking/pending" or request.path == "/Home/" %}
                     <img
                       alt="Rectangle73134"
                       src="/static/public/external/rectangle73134-y8t-200w.png"
@@ -328,7 +330,7 @@
                     />
                     {% endif%}
                     <!-- Aprooved Requests-->
-                    {% if request.path == "/Booking/Aprooved"%}
+                    {% if request.path == "/Booking/aprooved"%}
                     <img
                       alt="Rectangle73134"
                       src="/static/public/external/rectangle73134-y8t-200w.png"
@@ -436,7 +438,7 @@
             <span>Room Cleaning</span>
           </a>
           <a
-            href="/Booking/booking_manager"
+            href="/Booking/pending"
             class="guest-room-booking-text24"
           >
           <span>Guest Room Booking</span>
