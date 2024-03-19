@@ -1,0 +1,5 @@
+django
+python_dateutil
+pytz
+django-razorpay
+django-environ
