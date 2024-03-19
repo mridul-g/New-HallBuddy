@@ -41,13 +41,13 @@ The web app is deployed at: http://hallbuddyweb.pythonanywhere.com/
 Clone the repository-
 
 ```
-git clone https://github.com/mridul-g/HallBuddy
+git clone https://github.com/mridul-g/New-HallBuddy
 ```
 
 Run following commands to start the backend server-
 
 ```
-cd HallBuddy_Website
+cd New-HallBuddy
 ```
 
 ```
