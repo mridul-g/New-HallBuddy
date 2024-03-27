@@ -164,13 +164,15 @@
                         const markedDates = data.marked_dates;
                         markedDates.forEach(d => {
                             console.log(d["date"])
-                            const [year, month_, day] = d["date"].split('-').map(Number);
+                            const [year_, month_, day] = d["date"].split('-').map(Number);
                             const cleaned = d["cleaned"]
-                            console.log("DMMYYY ",day,month_,year)
+                            console.log("DMMYYY ",day,month_,year_)
+                            console.log("year",year_)
+                            console.log("year input",year)
                             const dateDivIndex = day + firstDayOfMonth.getDay() - 1;
                             const dateDiv = calendar.querySelectorAll('.date')[dateDivIndex];
                             console.log("DATEDIV IS ",dateDivIndex)
-                            if(month+1==month_){
+                            if(month+1==month_ && year==year_){
                             if(cleaned){
                                 dateDiv.classList.remove('red');
                                 dateDiv.classList.add('green');
@@ -208,10 +210,12 @@
                         const markedDates = data.marked_dates;
                         markedDates.forEach(d => {
                             console.log(d["date"])
-                            const [year, month_, day] = d["date"].split('-').map(Number);
+                            const [year_, month_, day] = d["date"].split('-').map(Number);
                             const cleaned = d["cleaned"]
                             console.log("DMMYYY ",day,month_,year)
                             console.log("month",month)
+                            console.log("year",year_)
+                            console.log("year input",year)
                             const dateDivIndex = day + firstDayOfMonth.getDay() - 1;
                             const dateDiv = calendar.querySelectorAll('.date')[dateDivIndex];
                             console.log("DATEDIV IS ",dateDivIndex)
