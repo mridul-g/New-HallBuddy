@@ -29,6 +29,8 @@ def Login(request):
     else:
         if request.user.is_authenticated:
             return redirect(Make_Homepage)
+        
+        request.session.flush()
         return render(request, "Login.html")
   
 def Set_Password(request):
@@ -180,6 +182,8 @@ def SignUp(request):
     else:
         if request.user.is_authenticated:
             return redirect(Make_Homepage)
+        
+        request.session.flush()
         request.session.set_test_cookie()
         options1=1          # option 1 stores if a hall manager has already been made
         if User_class.objects.filter(designation="Hall Manager").exists():
