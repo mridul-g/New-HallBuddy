@@ -29,7 +29,7 @@ def Pending_Request(request):
                 if(req.User_Name==request.user.username):
                     req.Done = True
                     req.save()
-                    messages.success(request, "Your request has been removed from pending requests successfully")
+                    messages.success(request, "Your request has been removed from pending requests successfully!")
                 else:
                     messages.error(request, "You are unauthorised to mark the status of this request.")
 
