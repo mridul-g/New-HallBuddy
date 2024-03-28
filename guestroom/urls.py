@@ -9,6 +9,7 @@ urlpatterns = [
     # hall manager
     path('pending', views.pending, name='pending'),
     path('aprooved', views.bookings_aprooved, name='bookings_aprooved'),
+    path('update', views.update_room, name='update_room'),
 
 
     # path('return_request_initiate', views.return_request_initiate, name='return_request_initiate')

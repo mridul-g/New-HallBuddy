@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 from datetime import datetime
-from guestroom.models import Guestroom
+from guestroom.models import Guestroom, Room
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -16,6 +16,7 @@ def guestroom(request):  # student can book the guestroom
             context = {
                 "bookings": Guestroom.objects.filter(username=request.user.username),
                 "messages": messages.get_messages(request),
+                "rooms": Room.objects.all().order_by("room"),
             }
             # keeps the booking logs updated
             today = datetime.today().date()
@@ -234,3 +235,100 @@ def bookings_aprooved(request):  # hall manager
             return render(request, "Error.html")
     else:
         return render(request, "Error.html")
+    
+def update_room(request):
+    if request.user.is_authenticated:
+        if request.user.designation == "Hall Manager":
+            if request.method == "POST":
+                if "add_room" in request.POST:               # makes an entry which will be filled by hall manager
+
+                    obj = Room(price="Rs.1000")
+                    obj.save()
+                    rooms = Room.objects.all().order_by("room")
+                    return render(
+                        request,
+                        "update_room.html",
+                        context={"rooms": rooms}
+                    )
+
+                elif "delete" in request.POST:
+                    # to delete Announcements from the weekly menu
+                    idt = request.POST.get(
+                        "delete"
+                    )  # idt is the key of the object to be deleted
+                    if Room.objects.filter(id=idt):
+                        room_del = Room.objects.filter(id=idt)[0]
+                        room_del.delete()
+
+                    messages.success(request, "Deleted Successfully")
+                    rooms = Room.objects.all().order_by("room")
+                    return render(
+                        request,
+                        "update_room.html",
+                        context={
+                            "rooms": rooms,
+                            "messages": messages.get_messages(request),
+                        },
+                    )
+                
+                elif "update" in request.POST:
+                    # to delete Announcements from the weekly menu
+                    idt = request.POST.get(
+                        "update"
+                    )  # idt is the key of the object to be deleted
+                    if Room.objects.filter(id=idt):
+                        room_obj = Room.objects.filter(id=idt)[0]
+                        room_obj.price = request.POST.get("price" + str(idt))
+                        room_obj.room = request.POST.get("room" + str(idt))
+                        room_obj.save()
+
+                    messages.success(request, "Updated Successfully")
+                    rooms = Room.objects.all().order_by("room")
+                    return render(
+                        request,
+                        "update_room.html",
+                        context={
+                            "rooms": rooms,
+                            "messages": messages.get_messages(request),
+                        },
+                    )
+                
+                # for obj in Room.objects.all():  # for obj in Announcements
+                #     if obj.room == 
+                #     room_price = request.POST.get("room" + str(obj.id))
+                #     if room_price is not None:
+                #         room_num = request.POST.get("room" + str(obj.id))
+                #         room_price = request.POST.get("price" + str(obj.id))
+                #         rooms_item = Room.objects.filter(id=obj.id)[0]
+                #         rooms_item.room = room_num
+                #         rooms_item.price = room_price
+                #         rooms_item.save()
+                #     else:
+                #         obj.delete()
+                # room = request.POST.get("room")
+                # price = request.POST.get("price")
+                # room_obj = Guestroom.objects.filter(room=room)
+                # if len(room_obj) > 0:
+                #     room_obj = room_obj[0]
+                #     room_obj.price = price
+                #     room_obj.save()
+                # messages.success(request, "Room price has been updated")
+                # rooms = Room.objects.all().order_by("room")
+                # return render(
+                #     request,
+                #     "update_room.html",
+                #     context={
+                #         "rooms": rooms,
+                #         "messages": messages.get_messages(request),
+                #     },
+                # )
+                # else:
+                #     messages.error(request, "Room does not exist")
+                #     rooms = Room.objects.all().order_by("room")
+                #     return render(request, "update_room.html", context={"rooms": rooms})
+            
+            else:
+                rooms = Room.objects.all().order_by("room")
+                return render(request, "update_room.html", context={"rooms": rooms})
+
+                return render(request, "Error.html")

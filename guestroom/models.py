@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Guestroom(models.Model):
 
-    room = models.CharField(max_length=1)
+    room = models.CharField(max_length=5)
 
     #status choices
     BOOK = 'book'
@@ -32,3 +32,9 @@ class Guestroom(models.Model):
     def __str__(self):
         return self.name
 
+class Room(models.Model):
+    room = models.CharField(max_length=5)
+    price = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.room
