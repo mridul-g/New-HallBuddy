@@ -9,22 +9,23 @@ from Home.models import Announcement
 
 def Make_Homepage (request):
     # rendering the home page
+    today_date = datetime.today().date()
     if request.user.is_authenticated:
         if(request.user.designation == 'Student'):
+            
             announcements = Announcement.objects.all().exclude(Item_Name = "").exclude(Item_Name = "None").order_by(
                 "-Announcement_Date"
             )  # QuerySet containing all announements
-
             if request.method == "POST":
 
                 quantity = int(request.POST.get("quantity"))  # number requested
                 idt = request.POST.get("identity")
                 order = Announcement.objects.filter(id=idt)[0]  # key of the item ordered
-
             return render(request,"Announcements.html",
                 context={
                     "announcements": announcements,
                     "messages": messages.get_messages(request),
+                    "todays_date":today_date,
                 },
             )
         
@@ -49,7 +50,8 @@ def Make_Homepage (request):
                     for obj in Announcement.objects.all():  # for obj in Announcements
                         
                         announcement_date = request.POST.get("announcement_date" + str(obj.id))
-                        if announcement_date is not None:
+                        item = request.POST.get("item" + str(obj.id))
+                        if announcement_date is not None and item!="":
 
                             announcement_date = datetime.strptime(str(announcement_date), "%Y-%m-%d")
                             item = request.POST.get("item" + str(obj.id))
@@ -99,7 +101,7 @@ def Make_Homepage (request):
                             },
                         )
                     else :
-                        messages.success(request, "Changes made successfully.")
+                        messages.success(request, "Changes made successfully!")
                         return render(
                             request,
                             "Announcements_admin.html",
@@ -115,7 +117,7 @@ def Make_Homepage (request):
                     return render(
                         request,
                         "Announcements_admin.html",
-                        context={"announcements": announcements, "status_check": 1},
+                        context={"announcements": announcements, "status_check": {1,2}},
                     )
 
                 elif "delete" in request.POST:
@@ -135,7 +137,7 @@ def Make_Homepage (request):
                                         item1.delete()
                                         break
 
-                    messages.success(request, "Deleted Successfully")
+                    messages.success(request, "Deleted Successfully !")
                     return render(
                         request,
                         "Announcements_admin.html",

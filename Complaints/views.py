@@ -2,6 +2,7 @@ from django.shortcuts import render
 from Complaints.models import Complaint_Request
 from datetime import datetime
 from django.contrib import messages
+from pytz import timezone
 
 
 def Past_Request(request):
@@ -64,7 +65,7 @@ def Lodge_Request(request):
                         comments=comments,
                         category=category,
                         sub_category=sub_category,
-                        Complaint_DateTime=datetime.now() )
+                        Complaint_DateTime=datetime.now(timezone("Asia/Kolkata")) )
                     req_object.save()   
                     messages.success(request, "Your request has been sent!")
                 return render(request, "Lodge_Request.html", context={"messages": messages.get_messages(request)})
