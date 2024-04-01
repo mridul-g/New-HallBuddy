@@ -20,6 +20,7 @@ class Guestroom(models.Model):
     )
     checkin_date = models.DateField()
     checkout_date = models.DateField()
+    type=models.CharField(max_length=100,default="Standard Room")
     price = models.CharField(max_length=100)
     manager_validation = models.CharField(max_length=10,default='NO')
 
@@ -34,6 +35,7 @@ class Guestroom(models.Model):
 
 class Room(models.Model):
     room = models.CharField(max_length=5)
+    type=models.CharField(max_length=100,default="Standard Room")
     price = models.CharField(max_length=100)
 
     def __str__(self):
