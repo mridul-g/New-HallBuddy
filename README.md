@@ -71,6 +71,9 @@ python manage.py runserver
 
 Go on the localhost web address :http://127.0.0.1:8000/ which must have been printed on the terminal.
 
+For the hall manger the default login is created as username: admin  password: admin
+
+
 
 
   
