@@ -22,7 +22,7 @@
     .success{
         text-align: center;
         padding-bottom: 1vh;
-        color: white;
+        color: #155724;
         background-color: #d4edda;
         border-color: #c3e6cb;
         font-size: 1.2em;
@@ -48,10 +48,10 @@
 </head>
 
 <body>
-  
+
   {% if messages %}
   {% for message in messages %}
-  <div class="{{message.tags}}"  style="color:white">
+  <div class="{{message.tags}}">
     {{message}}
   </div>
   {% endfor %}
@@ -72,7 +72,6 @@
 
       <tr>
         <th style="text-align: center;">Room No.</th>
-        <th style="text-align: center;">Room Type</th>
         <th style="text-align: center;">Price per day</th>
         <th style="text-align: center;">Action</th>
       </tr>
@@ -83,17 +82,14 @@
             <td>{{room.room_no}}
               <input name='room{{room.id}}' value="{{room.room}}" style="text-align: center;" required></input>
             </td>
-            <td>
-              <input name="type{{room.id}}" value="{{room.type}}" style="text-align: center;" required></input>
+            <td> Rs.
+              <input type="number" min="0" name="price{{room.id}}" value="{{room.price}}" style="text-align: center;" required></input>
             </td>
             <td>
-              <input name="price{{room.id}}" value="{{room.price}}" style="text-align: center;" required></input>
-            </td>
-            <td>
-                <button type="submit" name="update" value="{{room.id}}" class="btn btn-success btn-sm">
+                <button type="submit" name="update" value="{{room.id}}" class="btn btn-success">
                     <input type="hidden" name="editable_mode" />Update
                 </button>
-                <button type="submit" name="delete" value="{{room.id}}" class="btn btn-danger btn-sm">
+                <button type="submit" name="delete" value="{{room.id}}" class="btn btn-success">
                     <input type="hidden" name="editable_mode" />Delete
                 </button>
             </td>

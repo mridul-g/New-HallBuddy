@@ -1,9 +1,13 @@
 from django.shortcuts import render, HttpResponse
+
+# Create your views here.
 from datetime import datetime
 from guestroom.models import Guestroom, Room
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+
+# Create your views here.
 
 
 def guestroom(request):  # student can book the guestroom
@@ -27,7 +31,6 @@ def guestroom(request):  # student can book the guestroom
                 room = request.POST.get("room")
                 checkin_date = request.POST.get("checkin_date")
                 checkout_date = request.POST.get("checkout_date")
-                room_type=request.POST.get("type")
                 price = request.POST.get("price")
 
                 request_in_date = datetime.strptime(checkin_date, "%Y-%m-%d").date()
@@ -56,7 +59,13 @@ def guestroom(request):  # student can book the guestroom
                             ) or (
                                 request_out_date >= in_date
                                 and request_out_date <= out_date
-                            ):
+                            ) or (
+                                    in_date >= request_in_date
+                                and in_date <= request_out_date
+                            ) or (
+                                out_date >= request_in_date
+                                and out_date <= request_out_date
+                            ) :
                                 flag = 0
                                 break
 
@@ -76,7 +85,6 @@ def guestroom(request):  # student can book the guestroom
                                 guestroom_request = Guestroom(
                                     checkin_date=checkin_date,
                                     checkout_date=checkout_date,
-                                    type=room_type,
                                     price=price,
                                     date=datetime.today(),
                                     name=request.user.name,
@@ -87,7 +95,7 @@ def guestroom(request):  # student can book the guestroom
                                 guestroom_request.save()
                                 messages.success(
                                     request,
-                                    f"Your reques thas been sent to the Hall manager, please contact him for further info.",
+                                    f"Your request for this room has been sent to the Hall manager, please contact him for further proceedings. UPHA team will communicate their confirmation to you.",
                                 )
                                 return render(request, "guestroom.html", context)
                         else:
@@ -97,14 +105,13 @@ def guestroom(request):  # student can book the guestroom
                                 break
                             messages.error(
                                 request,
-                                f"The room is already booked from {room_r.checkin_date} to {room_r.checkout_date}",
+                                f"The room you have requested is already booked from {room_r.checkin_date} to {room_r.checkout_date}. UPHA team highly regrets the inconvenience caused.",
                             )
                             return render(request, "guestroom.html", context)
                     else:
                         guestroom_request = Guestroom(
                             checkin_date=checkin_date,
                             checkout_date=checkout_date,
-                            type=room_type,
                             price=price,
                             date=datetime.today(),
                             name=request.user.name,
@@ -143,7 +150,7 @@ def pastbookings(request):
                 "bookings": Guestroom.objects.filter(username=request.user.username),
                 "messages": messages.get_messages(request)
             }
-           
+
             return render(request, "pastbookings.html", context)
         else:
             return render(request, "Error.html")
@@ -166,7 +173,6 @@ def pending(request):  # hall manager
             if request.method == "POST":
                 username = request.POST.get("username")
                 room = request.POST.get("room")
-                room_type=request.POST.get("type")
                 checkin = request.POST.get("checkin_date")
                 checkout = request.POST.get("checkout_date")
                 action = request.POST.get("action")
@@ -177,7 +183,6 @@ def pending(request):  # hall manager
 
                 get_booking = Guestroom.objects.filter(
                     username=username,
-                    type=room_type,
                     room=room,
                     checkin_date=checkin_date,
                     checkout_date=checkout_date,
@@ -189,21 +194,22 @@ def pending(request):  # hall manager
                     messages.success(request, "The booking has been validated")
 
                     #deleting the other booking request for same room between same dates
-                    other_bookings = Guestroom.objects.filter(room=room,manager_validation = "NO").exclude(username=username)
+                    other_bookings = Guestroom.objects.filter(room=room,manager_validation = "NO")
                     for booking in other_bookings:
                         # if booking.checkin_date <= checkin_date <= booking.checkout_date or booking.checkin_date <= checkout_date <= booking.checkout_date:
-                        if checkin_date <= booking.checkin_date <= checkout_date or checkin_date <= booking.checkout_date <= checkout_date:
-                            booking.delete()
-                            #sending mail to the user
-                            subject = "Guestroom Booking Rejected"
-                            message = f"Dear {booking.username},\n\n Your booking request for Room:{booking.room}, {booking.type} has been rejected by the hall manager. You had requested Room-{booking.room} from {booking.checkin_date} to {booking.checkout_date}\n  This is an auto-generated mail, please do not reply to this mail. \n\nHall Buddy"
-                            email_from = settings.EMAIL_HOST_USER
-                            recipient_list = [f"{booking.username}@iitk.ac.in"]
-                            send_mail(subject, message, email_from, recipient_list)
+                        if (booking.id != get_booking.id):
+                            if checkin_date <= booking.checkin_date <= checkout_date or checkin_date <= booking.checkout_date <= checkout_date or booking.checkin_date <= checkin_date <= booking.checkout_date or booking.checkin_date <= checkout_date <= booking.checkout_date:
+                                booking.delete()
+                                #sending mail to the user
+                                subject = "Guestroom Booking Rejected"
+                                message = f"Dear {booking.username},\n\n Your booking request for Room:{booking.room} has been rejected by the hall manager. You had requested Room-{booking.room} from {booking.checkin_date} to {booking.checkout_date}\n  This is an auto-generated mail, please do not reply to this mail. \n\nHall Buddy"
+                                email_from = settings.EMAIL_HOST_USER
+                                recipient_list = [f"{booking.username}@iitk.ac.in"]
+                                send_mail(subject, message, email_from, recipient_list)
 
                     # adding mail for validation of the booking
                     subject = "Guestroom Booking Accepted"
-                    message = f"Dear {username},\n\n Your booking request for Room:{room},{room_typetype} has been accepted by the hall manager. You have booked Room-{room} from {get_booking.checkin_date} to {get_booking.checkout_date}\n This is an auto-generated mail, please do not reply to this mail.\n\nHallBuddy"
+                    message = f"Dear {username},\n\n Your booking request for Room:{room} has been accepted by the hall manager. You have booked Room-{room} from {get_booking.checkin_date} to {get_booking.checkout_date}\n This is an auto-generated mail, please do not reply to this mail.\n\nHallBuddy"
                     email_from = settings.EMAIL_HOST_USER
                     recipient_list = [f"{username}@iitk.ac.in"]
                     send_mail(subject, message, email_from, recipient_list)
@@ -213,7 +219,7 @@ def pending(request):  # hall manager
 
                     # adding mail for rejection of booking
                     subject = "Guestroom Booking Rejected"
-                    message = f"Dear {username},\n\n Your booking request for Room:{room},{room_type} has been rejected by the hall manager. You had requested Room-{room} from {get_booking.checkin_date} to {get_booking.checkout_date}\n This is an auto-generated mail, please do not reply to this mail.\n\nHallBuddy"
+                    message = f"Dear {username},\n\n Your booking request for Room:{room} has been rejected by the hall manager. You had requested Room-{room} from {get_booking.checkin_date} to {get_booking.checkout_date}\n This is an auto-generated mail, please do not reply to this mail.\n\nHallBuddy"
                     email_from = settings.EMAIL_HOST_USER
                     recipient_list = [f"{username}@iitk.ac.in"]
                     send_mail(subject, message, email_from, recipient_list)
@@ -236,14 +242,14 @@ def bookings_aprooved(request):  # hall manager
             return render(request, "Error.html")
     else:
         return render(request, "Error.html")
-    
+
 def update_room(request):
     if request.user.is_authenticated:
         if request.user.designation == "Hall Manager":
             if request.method == "POST":
                 if "add_room" in request.POST:               # makes an entry which will be filled by hall manager
 
-                    obj = Room(price="Rs.1000")
+                    obj = Room(price="1000")
                     obj.save()
                     rooms = Room.objects.all().order_by("room")
                     return render(
@@ -271,7 +277,7 @@ def update_room(request):
                             "messages": messages.get_messages(request),
                         },
                     )
-                
+
                 elif "update" in request.POST:
                     # to delete Announcements from the weekly menu
                     idt = request.POST.get(
@@ -281,7 +287,6 @@ def update_room(request):
                         room_obj = Room.objects.filter(id=idt)[0]
                         room_obj.price = request.POST.get("price" + str(idt))
                         room_obj.room = request.POST.get("room" + str(idt))
-                        room_obj.type=request.POST.get("type" + str(idt))
                         room_obj.save()
 
                     messages.success(request, "Updated Successfully")
@@ -294,41 +299,7 @@ def update_room(request):
                             "messages": messages.get_messages(request),
                         },
                     )
-                
-                # for obj in Room.objects.all():  # for obj in Announcements
-                #     if obj.room == 
-                #     room_price = request.POST.get("room" + str(obj.id))
-                #     if room_price is not None:
-                #         room_num = request.POST.get("room" + str(obj.id))
-                #         room_price = request.POST.get("price" + str(obj.id))
-                #         rooms_item = Room.objects.filter(id=obj.id)[0]
-                #         rooms_item.room = room_num
-                #         rooms_item.price = room_price
-                #         rooms_item.save()
-                #     else:
-                #         obj.delete()
-                # room = request.POST.get("room")
-                # price = request.POST.get("price")
-                # room_obj = Guestroom.objects.filter(room=room)
-                # if len(room_obj) > 0:
-                #     room_obj = room_obj[0]
-                #     room_obj.price = price
-                #     room_obj.save()
-                # messages.success(request, "Room price has been updated")
-                # rooms = Room.objects.all().order_by("room")
-                # return render(
-                #     request,
-                #     "update_room.html",
-                #     context={
-                #         "rooms": rooms,
-                #         "messages": messages.get_messages(request),
-                #     },
-                # )
-                # else:
-                #     messages.error(request, "Room does not exist")
-                #     rooms = Room.objects.all().order_by("room")
-                #     return render(request, "update_room.html", context={"rooms": rooms})
-            
+
             else:
                 rooms = Room.objects.all().order_by("room")
                 return render(request, "update_room.html", context={"rooms": rooms})
