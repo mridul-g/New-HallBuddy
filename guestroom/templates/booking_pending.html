@@ -23,11 +23,11 @@
   </head>
 
   <body>
-    <div class="main_div"  style="color:white">
-     
+    <div class="main_div">
+
         {% if messages %}
             {% for message in messages %}
-            <div class="{{message.tags}}">
+            <div class="{{message.tags}}"   style="color:white">
               {{message}}
             </div>
           {% endfor %}
@@ -63,7 +63,7 @@
             </td>
             <td> {{item.checkout_date}}
               <input type="hidden" name="checkout_date" value="{{item.checkout_date}}"></input>
-            </td> 
+            </td>
             <td>
               <button type="submit" name='action' value="Approve" class="btn btn-success btn-sm">Approve</button>
               <button type="submit" name='action'  value='Reject' class="btn btn-danger btn-sm">Reject</button>
@@ -71,11 +71,11 @@
       </form>
       </tr>
       {% endfor %}
-      
+
     </table><br><br>
   </div>
 
       </div>
     </div>
-  </body> 
+  </body>
 </html>

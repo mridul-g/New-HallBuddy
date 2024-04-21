@@ -2,7 +2,7 @@ from django.urls import path
 from guestroom import views
 
 urlpatterns = [
-    
+
     # students
     path('book', views.guestroom, name='guestroom'),
     path('pastbookings', views.pastbookings, name='pastbookings'),

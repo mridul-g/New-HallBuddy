@@ -28,7 +28,7 @@
       {{message}}
     </div>
     {% endfor %}
-    {% endif %}
+    {% endif %}
     <img src="{%static 'GuestRB.png'%}" style="position:relative;left:100px;"><br><br>
     <table class="grb" cellspacing="10px" cellpadding="5px" align="right">
 
@@ -54,7 +54,7 @@
             <td style="text-align: center;">{{room.type}}
               <input type="hidden" name="type" value="{{room.type}}" style="text-align: center;" required></input>
             </td>
-            <td style="text-align: center;">{{room.price}}
+            <td style="text-align: center;">Rs.{{room.price}}
               <input type="hidden" name="price" value="{{room.price}}" style="text-align: center;" required></input>
             </td>
             <td>

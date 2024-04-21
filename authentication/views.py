@@ -29,10 +29,9 @@ def Login(request):
     else:
         if request.user.is_authenticated:
             return redirect(Make_Homepage)
-        
         request.session.flush()
         return render(request, "Login.html")
-  
+
 def Set_Password(request):
     # lets user set password for their account
     if '6' not in request.session:
@@ -78,7 +77,7 @@ def Set_Password(request):
                 if User_class.objects.filter(designation=designation).exists():
                     messages.error(request, "Someone already exists with this designation")
                     return render(request, "Set_Password.html", context={'messages':messages.get_messages(request)})
-                
+
                 else:
                     name=request.session['0']
                     username=request.session['1']
@@ -182,7 +181,7 @@ def SignUp(request):
     else:
         if request.user.is_authenticated:
             return redirect(Make_Homepage)
-        
+
         request.session.flush()
         request.session.set_test_cookie()
         options1=1          # option 1 stores if a hall manager has already been made
@@ -204,7 +203,7 @@ def OTP_Send(request):
                 if request.session['4']==1:
                     username=request.session['5']
                     name=User_class.objects.filter(username=username)[0].name
-                
+
                 subject = f'{subject_} {otp}'
                 message = f'Dear {name}, Your OTP for HallBuddy account is {otp}. Valid only for 5 mins. Please do not share this with any other person.'
                 email_from = settings.EMAIL_HOST_USER
@@ -237,7 +236,7 @@ def OTP(request):
             return render(request, "OTP.html")
         else:
             return redirect(Login)
-    
+
 def Logout(request):
     # log out the user
     logout(request)

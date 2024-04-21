@@ -48,7 +48,7 @@
 </head>
 
 <body>
-  
+
   {% if messages %}
   {% for message in messages %}
   <div class="{{message.tags}}"  style="color:white">
@@ -86,8 +86,8 @@
             <td>
               <input name="type{{room.id}}" value="{{room.type}}" style="text-align: center;" required></input>
             </td>
-            <td>
-              <input name="price{{room.id}}" value="{{room.price}}" style="text-align: center;" required></input>
+            <td> Rs.
+              <input type="number" min="0" name="price{{room.id}}" value="{{room.price}}" style="text-align: center;" required></input>
             </td>
             <td>
                 <button type="submit" name="update" value="{{room.id}}" class="btn btn-success btn-sm">

@@ -23,11 +23,11 @@
   </head>
 
   <body>
-    <div class="main_div"  style="color:white">
-     
+    <div class="main_div">
+
         {% if messages %}
             {% for message in messages %}
-            <div class="{{message.tags}}">
+            <div class="{{message.tags}}"   style="color:white">
               {{message}}
             </div>
           {% endfor %}
@@ -58,19 +58,19 @@
             <td> {{item.type}}
               </td>
             <td> {{item.checkin_date}}
-             
+
             </td>
             <td> {{item.checkout_date}}
-              
+
             </td>
           </form>
       </tr>
       {% endfor %}
-      
+
     </table>
   </div>
 
       </div>
     </div>
-  </body> 
+  </body>
 </html>

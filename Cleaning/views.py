@@ -72,11 +72,11 @@ def get_records(request):
                 # print("Inside get_records")
                 # print("Date:",f_date)
                 # print("Room:",room)
-                if (f_date=="" and room=="Room Number"):
+                if (f_date=="" and room==""):
                     record_list =MarkedDate.objects.filter()
                 elif(f_date==""):
                     record_list =MarkedDate.objects.filter(room=room)
-                elif(room=="Room Number"):
+                elif(room==""):
                     record_list =MarkedDate.objects.filter(date=f_date)
                 else:
                     record_list =MarkedDate.objects.filter(room=room,date=f_date)
