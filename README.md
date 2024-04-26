@@ -1,7 +1,7 @@
 HallBuddy
 ==================================
 
-This application was made as a course project of [CS253A](https://www.cse.iitk.ac.in/users/isaha/Courses/sdo22.shtml/): Software Development and Operations in spring 2022 under 
+This application was made as a course project of [CS253](https://www.cse.iitk.ac.in/users/isaha/Courses/sdo22.shtml/): Software Development and Operations in spring 2024 under 
 the guidance of [Dr. Indranil Saha](https://www.cse.iitk.ac.in/users/isaha/).
 
 Hall Buddy is a merged platform designed for the residents of various halls at IITK to access day to day hall functionalities. This portal aims to 
@@ -32,7 +32,7 @@ Broadly, the application will support the following:
 
 ## Deployment
 
-The web app is deployed at: 
+The web app is deployed at: http://hallbuddyweb.pythonanywhere.com/
 
 ## How to run the software locally?
 
@@ -41,13 +41,13 @@ The web app is deployed at:
 Clone the repository-
 
 ```
-git clone https://github.com/mridul-g/HallBuddy
+git clone https://github.com/mridul-g/New-HallBuddy
 ```
 
 Run following commands to start the backend server-
 
 ```
-cd HallBuddy_Website
+cd New-HallBuddy
 ```
 
 ```
@@ -71,6 +71,4 @@ python manage.py runserver
 
 Go on the localhost web address :http://127.0.0.1:8000/ which must have been printed on the terminal.
 
-
-
-  
+For the hall manger the default login is created as username: admin  password: admin
